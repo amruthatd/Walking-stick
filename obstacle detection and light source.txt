@@ -1,0 +1,57 @@
+const int ledPin = 3;   
+const int ldrPin = A0;  
+int const triggerPin = 4;
+int const echoPin = 5;
+int const buzzPin = 7;
+
+void setup()
+{
+   Serial.begin(9600);
+  pinMode(ledPin, OUTPUT);  
+  pinMode(ldrPin, INPUT);  
+  pinMode(3,OUTPUT);
+  pinMode(triggerPin, OUTPUT); 
+  pinMode(echoPin, INPUT); 
+  pinMode(buzzPin, OUTPUT);
+}
+void loop()
+{  int duration, distance;
+   int ldrStatus = analogRead(ldrPin);   
+
+ 
+
+   if (ldrStatus <=800) {
+
+    digitalWrite(ledPin, HIGH);              
+    Serial.println("LDR is DARK, LED is ON");
+    
+   }
+  else {
+
+    digitalWrite(ledPin, LOW); 
+    Serial.println("LDR is BRIGHT, LED is OFF");
+  }
+
+  
+
+  digitalWrite(triggerPin, HIGH);
+  delay(0.1);
+  digitalWrite(triggerPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+
+  distance = (duration/58);
+
+  if (distance <= 50 && distance >= 0) 
+  {
+    digitalWrite(buzzPin, HIGH);
+    
+  } 
+  else 
+  {
+
+  digitalWrite(buzzPin, LOW);
+  }
+
+
+}
